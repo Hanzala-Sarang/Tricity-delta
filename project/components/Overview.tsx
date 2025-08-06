@@ -14,11 +14,7 @@ export default function Overview({ onOpenForm }: OverviewProps) {
           </h2>
           
           <p className="text-xl text-justify text-[#3C3C3C] leading-relaxed mb-12">
-            Serene Gardens represents the pinnacle of modern living in Mumbai's most coveted location. 
-            Nestled in the vibrant heart of Bandra West, this architectural masterpiece offers an 
-            unparalleled blend of contemporary design, world-class amenities, and strategic connectivity. 
-            Every detail has been meticulously crafted to provide residents with an extraordinary living 
-            experience that transcends conventional luxury.
+Delta & Tricity bring you a visionary lifestyle concept that seamlessly integrates residential, IT Park, and High-Street Retail spaces in creating a holistic ecosystem that harmonizes work, shop, play & life. Located at Airoli Nexus opposite the Airoli Underpass along Thane Belapur Highway, this integrated development is thoughtfully designed to foster connections, spark joy and empower well-being.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">

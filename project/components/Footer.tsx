@@ -14,7 +14,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">
-              Premium<span className="text-[#4B7B87]">Homes</span>
+              Tricity<span className="text-[#4B7B87]">Delta </span>
             </h3>
             <p className="text-white/80 leading-relaxed">
               Creating exceptional living experiences with luxury, comfort, and innovation at the heart of every project.

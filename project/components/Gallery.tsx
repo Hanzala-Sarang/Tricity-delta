@@ -8,19 +8,17 @@ export default function Gallery() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const interiorImages = [
-    'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
-    'https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg',
-    'https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg',
-    'https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg',
-    'https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg',
+'/gallery/g9.jpg',
+    '/gallery/g10.jpg',
+    '/gallery/g11.jpg',
+    '/gallery/g12.jpg',
   ];
 
   const exteriorImages = [
-    'https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg',
-    'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg',
-    'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg',
-    'https://images.pexels.com/photos/2121121/pexels-photo-2121121.jpeg',
-    'https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg',
+    '/gallery/g1.jpg',
+    '/gallery/g2.jpg',
+    '/gallery/g3.jpg',
+    '/gallery/g4.jpg',
   ];
 
   const currentImages = activeTab === 'interior' ? interiorImages : exteriorImages;

@@ -19,10 +19,7 @@ export default function About() {
               </h3>
               
               <p className="text-lg text-justify text-[#3C3C3C] leading-relaxed mb-6">
-                With over two decades of excellence in real estate development, Premium Developers Ltd. 
-                has been at the forefront of creating exceptional living spaces that blend luxury, 
-                functionality, and sustainability. Our commitment to quality, innovation, and customer 
-                satisfaction has made us one of Mumbai's most trusted real estate brands.
+The success of a company is always based on the foundation of its values. At Delta Group, values hold the highest position. Every project of the group upholds the virtues of value for quality and innovation. Our legacy of high quality execution and before time possession of projects translate into extraordinary value for customers becoming benchmarks for their satisfaction. Also thoughtful amenities and pioneering facilities further add to the value of trust.Imagine a Lifespace that inspires you every day. A space where architecture meets art, and functionality blends with beauty. At Tricity, we don't just build homes - we craft environments that uplift and inspire. With a passion for innovative design and a commitment to excellence, we're redefining the city skylines with living spaces that spark joy, foster connections, and bring people closer to their dreams.
               </p>
 
               <p className="text-[#3C3C3C] text-justify leading-relaxed mb-6">
