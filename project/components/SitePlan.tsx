@@ -135,8 +135,21 @@ export default function SitePlan({ onOpenForm }: SitePlanProps) {
                   <img
                     src={currentPlan.images[currentImageIndex]}
                     alt={`${currentPlan.name} Floor Plan ${currentImageIndex + 1}`}
-                    className="w-auto h-auto object-contain object-center" // object-contain to show full plan
+                    className="w-auto h-auto object-contain blur-sm object-center" // object-contain to show full plan
                   />
+                                    {/* Overlay to prompt for form */}
+                    <div 
+                      className="absolute inset-0 bg-black/25 flex flex-col items-center justify-center text-white text-center cursor-pointer"
+                      onClick={() => onOpenForm('floor-plans')} // Open form on click
+                    >
+                      <p className="text-xl font-semibold mb-2">Request to See Floor Plans</p>
+                      <p className="text-sm opacity-80">Click to get detailed layouts</p>
+                      <button 
+                        className="mt-4 px-6 py-2 bg-[#4B7B87] text-white rounded-lg hover:bg-[#5C8C9A] transition-colors"
+                      >
+                        Enquire Now
+                      </button>
+                    </div>
                   {totalImages > 1 && ( // Only show navigation if there's more than one image
                     <>
                       {/* Previous Button */}

@@ -103,6 +103,8 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
       case 'price-breakup': return 'Price Breakup Request';
       case 'floor-plans': return 'Floor Plans Request';
       case 'site-visit': return 'Site Visit Booking';
+      case 'location-request': return 'Request Location Map';
+      case 'connectivity': return 'Connectivity Overview';
       default: return 'Contact Us';
     }
   };

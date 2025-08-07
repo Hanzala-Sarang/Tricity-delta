@@ -76,7 +76,7 @@ export default function Home() {
           <SitePlan onOpenForm={handleOpenForm} />
           <Amenities />
           <Gallery />
-          {/* <Location /> */}
+          <Location onOpenForm={handleOpenForm} />
           <Video />
           <About />
           <Footer onOpenForm={handleOpenForm} />
