@@ -34,6 +34,27 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Custom CSS for the animating button gradient, injected on component mount.
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes gradient-animation-button {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-gradient-button {
+        background-size: 200% 200%;
+        animation: gradient-animation-button 4s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   useEffect(() => {
     if (isOpen && countries.length === 0) {
       const fetchCountries = async () => {
@@ -50,7 +71,6 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
               flag: country.cca2.toLowerCase(),
             }))
             .sort((a, b) => a.name.localeCompare(b.name));
-
           setCountries(formatted);
         } catch (err: any) {
           setError(err.message);
@@ -106,16 +126,16 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
     setIsDropdownOpen(false);
   };
 
-   const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const submissionData = {
       name: formData.name,
-      mobile: `${formData.countryCode}${formData.mobile}`, // Combine country code and mobile
+      mobile: `${formData.countryCode}${formData.mobile}`,
       email: formData.email,
       unitInterested: formData.unitInterested,
-      formType: formType, // Pass the formType from props
+      formType: formType,
     };
 
     try {
@@ -151,172 +171,188 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto font-sans">
-      <div className="flex min-h-screen items-center justify-center px-2 py-6">
-        <div className="fixed inset-0 bg-black/60 " onClick={onClose}></div>
+      <div className="flex min-h-screen items-center justify-center px-2 py-2">
+        <div className="fixed inset-0 bg-black/60" onClick={onClose}></div>
 
-        <div className="relative bg-white rounded-lg shadow-2xl w-full max-w-4xl z-50 overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">
-            {/* Left Column - We Promise */}
-            {/* On mobile (sm:), content will be a row; on larger screens (lg:), it will be a column */}
-            <div className="flex flex-col items-center justify-center bg-gray-100 p-6 text-center text-gray-800">
-              <h3 className="text-xl font-bold border-b-2 border-[#4B7B87] pb-2 mb-4">We Promise</h3>
-              <div className="flex flex-row sm:flex-row lg:flex-col justify-around sm:justify-center items-center w-full space-x-4 sm:space-x-6 lg:space-x-0 lg:space-y-6">
-                <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
-                  <PhoneIcon className="w-8 h-8 text-blue-500" />
-                  <p className="mt-1 text-sm font-medium">Instant Call Back</p>
-                </div>
-                <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
-                  <MapPinIcon className="w-8 h-8 text-red-500" />
-                  <p className="mt-1 text-sm font-medium">Free Site Visit</p>
-                </div>
-                <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
-                  <IndianRupeeIcon className="w-8 h-8 text-green-500" />
-                  <p className="mt-1 text-sm font-medium">Unmatched Price</p>
-                </div>
+        {/* Modal container with grid layout (no gradient animation) */}
+        <div
+          className="
+            relative bg-white rounded-lg shadow-2xl w-full max-w-sm sm:max-w-md lg:max-w-3xl z-50 overflow-hidden
+            grid grid-cols-1 grid-rows-[auto_auto] gap-4
+            sm:grid-rows-1 sm:grid-cols-[1fr_2fr_1fr] sm:gap-0
+          "
+        >
+          
+          {/* We Promise Section: visible only on sm+ */}
+          <div
+            className="hidden sm:flex flex-col items-center justify-center bg-gray-100 p-2 text-center text-gray-800 min-h-[180px]"
+          >
+            <h3 className="text-base font-bold border-b-2 border-[#4B7B87] pb-1 mb-1">We Promise</h3>
+            <div className="flex flex-row sm:flex-row lg:flex-col justify-around items-center w-full space-x-1 lg:space-x-0 lg:space-y-1">
+              <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
+                <PhoneIcon className="w-5 h-5 text-blue-500" />
+                <p className="mt-0.5 text-xs font-medium">Instant Call Back</p>
               </div>
-            </div>
-
-            {/* Center Column - Form */}
-            <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-center">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-[#000000]">{getFormTitle()}</h2>
-                <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg">
-                  <XMarkIcon className="w-6 h-6 text-[#3C3C3C]" />
-                </button>
+              <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
+                <MapPinIcon className="w-5 h-5 text-red-500" />
+                <p className="mt-0.5 text-xs font-medium">Free Site Visit</p>
               </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">Full Name *</label>
-                  <input
-                    id="name"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your full name"
-                    className="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87]"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="mobile" className="block mb-2 text-sm font-medium text-gray-700">Mobile Number *</label>
-                  <div className="flex gap-2">
-                    <div className="relative" ref={dropdownRef}>
-                      <button
-                        type="button"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="flex items-center px-3 py-2 border rounded-lg text-sm justify-between w-24"
-                      >
-                        <img
-                          src={`https://flagcdn.com/w40/${formData.countryFlag}.png`}
-                          alt="Flag"
-                          className="w-5 h-4 mr-1"
-                        />
-                        {formData.countryCode}
-                        {isDropdownOpen ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />}
-                      </button>
-                      {isDropdownOpen && (
-                        <div className="absolute z-10 bg-white border rounded-lg shadow-md max-h-60 overflow-y-auto mt-2 w-52">
-                          {isLoadingCountries ? (
-                            <div className="p-3 text-center">Loading...</div>
-                          ) : error ? (
-                            <div className="p-3 text-center text-red-500">{error}</div>
-                          ) : (
-                            countries.map((country) => (
-                              <div
-                                key={country.code}
-                                onClick={() => handleCountryCodeSelect(country.code, country.flag)}
-                                className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
-                              >
-                                <img
-                                  src={`https://flagcdn.com/w40/${country.flag}.png`}
-                                  alt={country.name}
-                                  className="w-5 h-4 mr-2"
-                                />
-                                <span>{country.name} ({country.code})</span>
-                              </div>
-                            ))
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    <input
-                      id="mobile"
-                      required
-                      type="tel"
-                      value={formData.mobile}
-                      onChange={handleMobileChange}
-                      placeholder="Your mobile number"
-                      className="flex-1 px-4 py-3 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email Address *</label>
-                  <input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    className="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87]"
-                  />
-                </div>
-
-                {(formType === 'enquiry' || formType === 'price-breakup') && (
-                  <div>
-                    <label htmlFor="unitInterested" className="block mb-2 text-sm font-medium text-gray-700">Unit Interested In</label>
-                    <select
-                      id="unitInterested"
-                      value={formData.unitInterested}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87]"
-                    >
-                      <option value="">Select unit type</option>
-                      <option value="1bhk">1 BHK</option>
-                      <option value="2bhk">2 BHK</option>
-                      <option value="3bhk">3 BHK</option>
-                    </select>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#4B7B87] text-white font-semibold py-3 rounded-lg hover:bg-[#5C8C9A] transition"
-                >
-                  {isSubmitting ? 'Submitting...' : 'Submit Request'}
-                </button>
-              </form>
-
-              <p className="text-xs text-center mt-4 text-gray-500">
-                We respect your privacy. Your data will not be shared.
-              </p>
-            </div>
-
-            {/* Right Column - Get Information On Availabilities */}
-            {/* On mobile (sm:), content will be a row; on larger screens (lg:), it will be a column */}
-            <div className="flex flex-col items-center justify-center bg-[#4B7B87] p-6 text-white">
-              <h3 className="text-2xl font-bold text-center border-b-2 border-white pb-2 mb-4">Get Information On Availabilities</h3>
-              <ul className="flex flex-row sm:flex-row lg:flex-col justify-around sm:justify-center items-center w-full space-x-4 sm:space-x-6 lg:space-x-0 lg:space-y-4">
-                <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-lg font-medium">
-                  <CheckCircleIcon className="w-6 h-6 mr-0 sm:mr-3 text-white" />
-                  <span className="mt-1">Available Units</span>
-                </li>
-                <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-lg font-medium">
-                  <CheckCircleIcon className="w-6 h-6 mr-0 sm:mr-3 text-white" />
-                  <span className="mt-1">Payment Plan</span>
-                </li>
-                <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-lg font-medium">
-                  <CheckCircleIcon className="w-6 h-6 mr-0 sm:mr-3 text-white" />
-                  <span className="mt-1">Floor Plans</span>
-                </li>
-              </ul>
+              <div className="flex flex-col items-center text-center w-1/3 sm:w-auto">
+                <IndianRupeeIcon className="w-5 h-5 text-green-500" />
+                <p className="mt-0.5 text-xs font-medium">Unmatched Price</p>
+              </div>
             </div>
           </div>
+
+          {/* Form Section */}
+          <div
+            className="p-3 sm:p-4 md:p-6 flex flex-col justify-center min-h-[180px]"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-lg sm:text-xl font-bold text-[#000000]">{getFormTitle()}</h2>
+              <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg">
+                <XMarkIcon className="w-5 h-5 text-[#3C3C3C]" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-2">
+              <div>
+                <label htmlFor="name" className="block mb-1 text-xs font-medium text-gray-700">Full Name *</label>
+                <input
+                  id="name"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your full name"
+                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87] text-sm"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="mobile" className="block mb-1 text-xs font-medium text-gray-700">Mobile Number *</label>
+                <div className="flex gap-1">
+                  <div className="relative" ref={dropdownRef}>
+                    <button
+                      type="button"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="flex items-center px-2 py-1.5 border rounded-lg text-xs justify-between w-20"
+                    >
+                      <img
+                        src={`https://flagcdn.com/w40/${formData.countryFlag}.png`}
+                        alt="Flag"
+                        className="w-4 h-3 mr-1"
+                      />
+                      {formData.countryCode}
+                      {isDropdownOpen ? (
+                        <ChevronUpIcon className="w-3 h-3" />
+                      ) : (
+                        <ChevronDownIcon className="w-3 h-3" />
+                      )}
+                    </button>
+                    {isDropdownOpen && (
+                      <div className="absolute z-10 bg-white border rounded-lg shadow-md max-h-52 overflow-y-auto mt-1 w-44">
+                        {isLoadingCountries ? (
+                          <div className="p-2 text-center text-xs">Loading...</div>
+                        ) : error ? (
+                          <div className="p-2 text-center text-xs text-red-500">{error}</div>
+                        ) : (
+                          countries.map((country) => (
+                            <div
+                              key={country.code}
+                              onClick={() => handleCountryCodeSelect(country.code, country.flag)}
+                              className="flex items-center px-2 py-1 hover:bg-gray-100 cursor-pointer text-xs"
+                            >
+                              <img
+                                src={`https://flagcdn.com/w40/${country.flag}.png`}
+                                alt={country.name}
+                                className="w-4 h-3 mr-2"
+                              />
+                              <span>{country.name} ({country.code})</span>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    id="mobile"
+                    required
+                    type="tel"
+                    value={formData.mobile}
+                    onChange={handleMobileChange}
+                    placeholder="Your mobile number"
+                    className="flex-1 px-3 py-2 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87] text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block mb-1 text-xs font-medium text-gray-700">Email Address *</label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  className="w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87] text-sm"
+                />
+              </div>
+
+              {(formType === 'enquiry' || formType === 'price-breakup') && (
+                <div>
+                  <label htmlFor="unitInterested" className="block mb-1 text-xs font-medium text-gray-700">Unit Interested In</label>
+                  <select
+                    id="unitInterested"
+                    value={formData.unitInterested}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-1 focus:ring-[#4B7B87] text-sm"
+                  >
+                    <option value="">Select unit type</option>
+                    <option value="1bhk">1 BHK</option>
+                    <option value="2bhk">2 BHK</option>
+                    <option value="3bhk">3 BHK</option>
+                  </select>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full text-black font-semibold py-2.5 rounded-lg text-sm transition bg-gradient-to-r from-[#4B7B87] via-[#5C8C9A] to-white animate-gradient-button hover:scale-[1.01] shadow-lg"
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit Request'}
+              </button>
+            </form>
+
+            <p className="text-[10px] text-center mt-2 text-gray-500">
+              We respect your privacy. Your data will not be shared.
+            </p>
+          </div>
+          {/* Get Information Section: always visible */}
+          <div
+            className="bg-[#4B7B87] p-2 text-white flex flex-col items-center justify-center min-h-[180px]"
+          >
+            <h3 className="text-lg font-bold text-center border-b-2 border-white pb-1 mb-1">
+              Get Information On Availabilities
+            </h3>
+            <ul className="flex flex-row sm:flex-row lg:flex-col justify-around items-center w-full space-x-1 lg:space-x-0 lg:space-y-1">
+              <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-sm font-medium">
+                <CheckCircleIcon className="w-5 h-5 mr-0 text-white" />
+                <span className="mt-0.5">Available Units</span>
+              </li>
+              <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-sm font-medium">
+                <CheckCircleIcon className="w-5 h-5 mr-0 text-white" />
+                <span className="mt-0.5">Payment Plan</span>
+              </li>
+              <li className="flex flex-col items-center text-center w-1/3 sm:w-auto text-sm font-medium">
+                <CheckCircleIcon className="w-5 h-5 mr-0 text-white" />
+                <span className="mt-0.5">Floor Plans</span>
+              </li>
+            </ul>
+          </div>
         </div>
+        
       </div>
     </div>
   );

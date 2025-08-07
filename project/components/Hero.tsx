@@ -13,17 +13,13 @@ export default function Hero({ onOpenForm }: HeroProps) {
 
   // Define images with separate sources for desktop and mobile
   const images = [
-    { 
-      desktopSrc: '/desk1.jpeg', 
+    {
+      desktopSrc: '/layout/hero1.webp',
       mobileSrc: '/g1.webp' // Assuming mobile image is the same for now, replace if different
     },
-    { 
-      desktopSrc: '/desk2.jpg', 
-      mobileSrc: '/g2.png' // Assuming mobile image is the same for now, replace if different
-    },
-    { 
-      desktopSrc: '/desk3.avif', 
-      mobileSrc: '/g3.webp' // Assuming mobile image is the same for now, replace if different
+    {
+      desktopSrc: '/layout/hero2.webp',
+      mobileSrc: '/g2.webp' // Assuming mobile image is the same for now, replace if different
     },
   ];
 
@@ -31,7 +27,7 @@ export default function Hero({ onOpenForm }: HeroProps) {
     // Function to check and set mobile state
     const checkIsMobile = () => {
       // Tailwind's 'lg' breakpoint is typically 1024px. Adjust if your 'lg' is different.
-      setIsMobile(window.innerWidth < 1024); 
+      setIsMobile(window.innerWidth < 1024);
     };
 
     // Initial check
@@ -73,12 +69,12 @@ export default function Hero({ onOpenForm }: HeroProps) {
             // Conditionally choose src based on isMobile state
             src={isMobile ? img.mobileSrc : img.desktopSrc}
             alt={`Luxury residential project ${index + 1}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out 
-              ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+            className={`
+              absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out
+              ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}
+            `}
           />
         ))}
-
-
 
         {/* Navigation Buttons */}
         <button
@@ -102,7 +98,7 @@ export default function Hero({ onOpenForm }: HeroProps) {
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}
-              className={`h-2 w-2 rounded-full bg-white transition-opacity duration-300 
+              className={`h-2 w-2 rounded-full bg-white transition-opacity duration-300
                 ${index === currentImageIndex ? 'opacity-100' : 'opacity-50 hover:opacity-75'}`}
               aria-label={`Go to image ${index + 1}`}
             />

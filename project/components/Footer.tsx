@@ -14,7 +14,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
           {/* Company Info */}
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">
-              Tricity<span className="text-[#4B7B87]">Delta </span>
+              Delta<span className="text-[#4B7B87]"> Group </span>
             </h3>
             <p className="text-white/80 leading-relaxed">
               Creating exceptional living experiences with luxury, comfort, and innovation at the heart of every project.
@@ -120,7 +120,7 @@ export default function Footer({ onOpenForm }: FooterProps) {
         <div className="border-t border-white/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm">
-              © 2024 Premium Developers Ltd. All rights reserved.
+              © 2024 Delta Group Pvt Ltd. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-white/50 hover:text-white text-sm transition-colors">Privacy Policy</a>

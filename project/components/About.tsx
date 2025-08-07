@@ -15,7 +15,7 @@ export default function About() {
           <div className="space-y-6">
             <div className="bg-white p-8 border border-[#EAEAEA]">
               <h3 className="text-2xl md:text-3xl font-bold text-[#3C3C3C] mb-4">
-                Premium Developers Ltd.
+                Delta Group
               </h3>
               
               <p className="text-lg text-justify text-[#3C3C3C] leading-relaxed mb-6">

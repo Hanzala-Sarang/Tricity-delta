@@ -8,17 +8,15 @@ export default function Gallery() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const interiorImages = [
-'/gallery/g9.jpg',
-    '/gallery/g10.jpg',
-    '/gallery/g11.jpg',
-    '/gallery/g12.jpg',
+'/gallery/i1.webp',
+    '/gallery/i2.webp',
+    '/gallery/i3.webp',
+    '/gallery/i4.webp',
   ];
 
   const exteriorImages = [
-    '/gallery/g1.jpg',
-    '/gallery/g2.jpg',
-    '/gallery/g3.jpg',
-    '/gallery/g4.jpg',
+    '/layout/hero1.webp',
+    '/layout/hero2.webp',
   ];
 
   const currentImages = activeTab === 'interior' ? interiorImages : exteriorImages;

@@ -1,27 +1,38 @@
 'use client';
 
+import { useState } from 'react';
 import { PlayIcon } from '@heroicons/react/24/solid';
+import ContactModal from './ContactModal'; // Assuming ContactModal is in the same components directory
 
 export default function Video() {
-  // Array of video data, now including a URL for playback.
+  // Array of video data, with the video URL removed.
   const videos = [
     {
       title: 'Sample Apartments',
-      thumbnail: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
+      thumbnail: '/layout/hero1.webp',
       description: 'Virtual walkthrough of our premium apartment configurations',
-      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' // Example video URL
     },
     {
       title: 'Virtual Site Tour',
-      thumbnail: 'https://images.pexels.com/photos/1115804/pexels-photo-1115804.jpeg',
+      thumbnail: '/layout/hero2.webp',
       description: 'Comprehensive site tour showcasing amenities and facilities',
-      videoUrl: 'https://www.youtube.com/watch?v=e_04ZrNro9Y' // Example video URL
     }
   ];
 
-  // Function to handle opening the video URL
-  const handlePlayVideo = (url: string) => {
-    window.open(url, '_blank');
+  // State to control the visibility of the modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // State to set the form type dynamically
+  const [formType, setFormType] = useState('');
+
+  // Function to handle opening the modal and setting the form type
+  const handleOpenModal = (type: string) => {
+    setFormType(type);
+    setIsModalOpen(true);
+  };
+
+  // The close function is passed to the modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -44,13 +55,14 @@ export default function Video() {
             <div 
               key={index} 
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer"
-              onClick={() => handlePlayVideo(video.videoUrl)}
+              // Call the new handler to open the modal
+              onClick={() => handleOpenModal('site-visit')} 
             >
               <div className="relative group">
                 <img
                   src={video.thumbnail}
                   alt={video.title}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-full object-cover"
                 />
                 
                 {/* Play Button Overlay */}
@@ -82,12 +94,12 @@ export default function Video() {
                     </span>
                   </div>
                   
-                  {/* "Watch Now" link */}
+                  {/* "Watch Now" link, now opens the modal */}
                   <button 
-                    onClick={() => handlePlayVideo(video.videoUrl)}
+                    onClick={() => handleOpenModal('site-visit')}
                     className="text-[#4B7B87] font-medium hover:text-[#5C8C9A] transition-colors"
                   >
-                    Watch Now
+                    Request Site Visit
                   </button>
                 </div>
               </div>
@@ -124,6 +136,13 @@ export default function Video() {
             </div>
           </div>
         </div>
+
+        {/* The ContactModal component is rendered here */}
+        <ContactModal 
+          isOpen={isModalOpen} 
+          onClose={handleCloseModal} 
+          formType={formType} 
+        />
       </div>
     </section>
   );

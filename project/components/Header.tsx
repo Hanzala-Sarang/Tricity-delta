@@ -11,6 +11,7 @@ import {
   VideoCameraIcon,
   DocumentArrowDownIcon,
 } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 interface HeaderProps {
   onOpenForm: (formType: string) => void;
@@ -53,9 +54,7 @@ export default function Header({ onOpenForm }: HeaderProps) {
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-3xl lg:text-4xl font-bold text-black tracking-wider font-mono">
-              Tricity
-            </h1>
+            <Image src='/logo.png' alt='logo' width={150} height={10}/>
           </div>
 
           {/* Desktop Navigation */}
