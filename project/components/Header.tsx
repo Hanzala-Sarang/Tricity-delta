@@ -29,6 +29,27 @@ export default function Header({ onOpenForm }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Custom CSS for the animating button gradient, injected on component mount.
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes header-button-gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-header-button-gradient {
+        background-size: 200% 200%;
+        animation: header-button-gradient-animation 4s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const navigation = [
     { name: 'Price', href: '#price', icon: CurrencyDollarIcon },
     { name: 'Site Plan', href: '#site-plan', icon: MapIcon },
@@ -71,7 +92,8 @@ export default function Header({ onOpenForm }: HeaderProps) {
             ))}
             <button
               onClick={() => onOpenForm('brochure')}
-              className="flex items-center px-6 py-3 ml-4 bg-[#4B7B87] text-white text-base font-medium rounded-lg shadow-lg hover:bg-[#5C8C9A] transform hover:scale-105 transition-all duration-200"
+              className="flex items-center px-6 py-3 ml-4 text-white text-base font-medium rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200
+                bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-header-button-gradient"
             >
               <DocumentArrowDownIcon className="w-5 h-5 mr-2" />
               Download Brochure
@@ -109,7 +131,8 @@ export default function Header({ onOpenForm }: HeaderProps) {
               ))}
               <button
                 onClick={() => onOpenForm('brochure')}
-                className="flex items-center w-full px-4 py-3 mt-2 bg-[#4B7B87] text-white text-base font-medium rounded-lg shadow-md hover:bg-[#5C8C9A] transition-all duration-200"
+                className="flex items-center w-full px-4 py-3 mt-2 text-white text-base font-medium rounded-lg shadow-md transition-all duration-200
+                  bg-gradient-to-r from-[#cca43b] via-[#242f40] to-[#cca43b] animate-header-button-gradient"
               >
                 <DocumentArrowDownIcon className="w-5 h-5 mr-3" />
                 Download Brochure

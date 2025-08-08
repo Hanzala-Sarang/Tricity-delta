@@ -42,7 +42,7 @@ export default function Video() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#000000] mb-4">
-            Virtual <span className="text-[#4B7B87]">Experience</span>
+            Virtual <span className="text-[#030961]">Experience</span> {/* Changed text color to dark blue */}
           </h2>
           <p className="text-xl text-[#3C3C3C] max-w-3xl mx-auto opacity-80">
             Explore our project through immersive virtual tours and detailed apartment walkthroughs
@@ -68,7 +68,7 @@ export default function Video() {
                 {/* Play Button Overlay */}
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center group-hover:bg-black/60 transition-all duration-300">
                   <div className="bg-white rounded-full p-6 transform group-hover:scale-110 transition-all duration-300">
-                    <PlayIcon className="w-12 h-12 text-[#4B7B87] ml-1" />
+                    <PlayIcon className="w-12 h-12 text-[#030961] ml-1" /> {/* Changed icon color to dark blue */}
                   </div>
                 </div>
 
@@ -85,11 +85,11 @@ export default function Video() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4 text-sm text-[#3C3C3C] opacity-70">
                     <span className="flex items-center">
-                      <span className="w-2 h-2 bg-[#5B8C5A] rounded-full mr-2"></span>
+                      <span className="w-2 h-2 bg-[#fad643] rounded-full mr-2"></span> {/* Changed background to golden */}
                       HD Quality
                     </span>
                     <span className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                      <span className="w-2 h-2 bg-[#030961] rounded-full mr-2"></span> {/* Changed background to dark blue */}
                       360° View
                     </span>
                   </div>
@@ -97,7 +97,7 @@ export default function Video() {
                   {/* "Watch Now" link, now opens the modal */}
                   <button 
                     onClick={() => handleOpenModal('site-visit')}
-                    className="text-[#4B7B87] font-medium hover:text-[#5C8C9A] transition-colors"
+                    className="text-[#030961] font-medium hover:text-[#fad643] transition-colors" /* Changed text and hover color */
                   >
                     Request Site Visit
                   </button>
@@ -107,8 +107,8 @@ export default function Video() {
           ))}
         </div>
 
-        {/* Video Stats Banner (without gradient) */}
-        <div className="mt-16 bg-[#3C3C3C] rounded-lg p-8 text-white">
+        {/* Video Stats Banner */}
+        <div className="mt-16 bg-[#030961] rounded-lg p-8 text-white"> {/* Changed background to dark blue */}
           <div className="text-center mb-8">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">Interactive Experience</h3>
             <p className="text-white/90 max-w-2xl mx-auto opacity-70">

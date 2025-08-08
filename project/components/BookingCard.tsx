@@ -40,9 +40,9 @@ export default function BookingCard({ onOpenForm }: BookingCardProps) {
   }, []);
 
   return (
-    <section className="relative z-20 w-full flex items-center justify-center text-black py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <section className="relative z-20 w-full flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 font-sans">
       {/* Animated gradient background with rounded corners and shadow */}
-      <div className="bg-gradient-to-r from-[#4B7B87] via-[#5C8C9A] to-white animate-gradient p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-lg text-black">
+      <div className="bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-gradient p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-lg text-white">
         
         {/* Booking Status with a subtle pulse animation */}
         <div className="flex items-center gap-2 mb-4">
@@ -55,41 +55,41 @@ export default function BookingCard({ onOpenForm }: BookingCardProps) {
         
         {/* Project Info */}
         <h1 className="text-3xl md:text-4xl font-bold font-['Montserrat'] mb-1">Tricity Delta</h1>
-        <p className="text-lg text-black font-medium font-['Roboto'] mb-6">At Airoli, Navi Mumbai</p>
+        <p className="text-lg text-white font-medium font-['Roboto'] mb-6">At Airoli, Navi Mumbai</p>
 
         {/* Key Highlights with new "bulb on/off" animation */}
         <div className="space-y-3 mb-6">
-          <div className="flex items-center text-gray-100 font-['Roboto'] animate-highlight-bulb">
+          <div className="flex items-center text-white font-['Roboto'] animate-highlight-bulb">
             <span className="text-white mr-2">📍</span>
-            <span className="text-base text-black">5 Mins to Railway Station</span>
+            <span className="text-base text-white">5 Mins to Railway Station</span>
           </div>
-          <div className="flex items-center text-gray-100 font-['Roboto'] animate-highlight-bulb animation-delay-200">
+          <div className="flex items-center text-white font-['Roboto'] animate-highlight-bulb animation-delay-200">
             <span className="text-white mr-2">🌳</span>
-            <span className="text-base text-black">6 Acres Land Parcel</span>
+            <span className="text-base text-white">6 Acres Land Parcel</span>
           </div>
-          <div className="flex items-center text-gray-100 font-['Roboto'] animate-highlight-bulb animation-delay-400">
+          <div className="flex items-center text-white font-['Roboto'] animate-highlight-bulb animation-delay-400">
             <span className="text-white mr-2">🏢</span>
-            <span className="text-base text-black">3 Towers, 30+ Storey</span>
+            <span className="text-base text-white">3 Towers, 30+ Storey</span>
           </div>
-          <div className="flex items-center text-gray-100 font-['Roboto'] animate-highlight-bulb animation-delay-600">
+          <div className="flex items-center text-white font-['Roboto'] animate-highlight-bulb animation-delay-600">
             <span className="text-white mr-2">✨</span>
-            <span className="text-base text-black">30+ Podium & Ground Amenities</span>
+            <span className="text-base text-white">30+ Podium & Ground Amenities</span>
           </div>
         </div>
         
         {/* Price Information */}
         <div className="mb-6">
-          <p className="text-base text-black font-['Inter']">Luxury 1, 2 & 3 BHK Apartments</p>
-          <p className="text-sm text-black mb-1 font-['Inter']">Starting Price</p>
-          <p className="text-4xl md:text-5xl font-extrabold text-black font-['Montserrat']">
-            <IndianRupeeIcon className="inline-block text-black w-8 h-8 mr-1 align-sub" />84 Lacs* <span className="text-lg">Onwards</span>
+          <p className="text-base text-white font-['Inter']">Luxury 1, 2 & 3 BHK Apartments</p>
+          <p className="text-sm text-gray-200 mb-1 font-['Inter']">Starting Price</p>
+          <p className="text-4xl md:text-5xl font-extrabold text-white font-['Montserrat']">
+            <IndianRupeeIcon className="inline-block text-white w-8 h-8 mr-1 align-sub" />89.99 Lacs* <span className="text-lg">Onwards</span>
           </p>
         </div>
         
         {/* CTA Button */}
         <button
           onClick={() => onOpenForm('enquiry')}
-          className="w-full px-6 py-4 bg-white text-[#4B7B87] text-lg font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg transform hover:scale-[1.01]"
+          className="w-full px-6 py-4 bg-white text-[#242f40] text-lg font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 shadow-lg transform hover:scale-[1.01]"
         >
           Enquire Now
         </button>

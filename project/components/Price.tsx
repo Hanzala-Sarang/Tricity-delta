@@ -1,5 +1,8 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { IndianRupeeIcon } from 'lucide-react';
+
 interface PriceProps {
   onOpenForm: (formType: string) => void;
 }
@@ -8,32 +11,53 @@ export default function Price({ onOpenForm }: PriceProps) {
   const priceData = [
     {
       type: '1 BHK',
-      carpetArea: '450 - 520 sq.ft.',
-      price: '₹ 84 Lacs*',
+      carpetArea: '410-420 Sq.Ft.',
+      price: '₹ 89.99 Lacs*',
       status: 'Available'
     },
     {
       type: '2 BHK',
-      carpetArea: '680 - 780 sq.ft.',
-      price: '₹ 1.25 Cr*',
+      carpetArea: '650-670 Sq.Ft.',
+      price: '₹ 1.39 Cr*',
       status: 'Available'
     },
     {
       type: '3 BHK',
-      carpetArea: '950 - 1100 sq.ft.',
+      carpetArea: '850-900 Sq.Ft.',
       price: 'On Request',
       status: 'Limited'
     }
   ];
 
+  // Custom CSS for the animating button gradient, injected on component mount.
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes price-button-gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .animate-price-button-gradient {
+        background-size: 200% 200%;
+        animation: price-button-gradient-animation 4s ease-in-out infinite;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   return (
-    <section id="price" className="py-20 bg-[#EAEAEA]">
+    <section id="price" className="py-20 bg-[#EAEAEA] font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#3C3C3C] mb-4">
-            Investment <span className="text-[#4B7B87]">Options</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#000000] mb-4">
+            Investment <span className="text-[#030961]">Options</span>
           </h2>
-          <p className="text-xl text-justify text-[#3C3C3C] max-w-3xl mx-auto">
+          <p className="text-xl text-justify text-[#3C3C3C] max-w-3xl mx-auto opacity-80">
             Discover our range of thoughtfully designed homes that offer exceptional value and comfort
           </p>
         </div>
@@ -46,9 +70,9 @@ export default function Price({ onOpenForm }: PriceProps) {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-[#EAEAEA]">
-                      <th className="text-left py-4 px-2 text-[#3C3C3C] font-bold text-lg">Configuration</th>
-                      <th className="text-left py-4 px-2 text-[#3C3C3C] font-bold text-lg">Carpet Area</th>
-                      <th className="text-left py-4 px-2 text-[#3C3C3C] font-bold text-lg">Price</th>
+                      <th className="text-left py-4 px-2 text-[#030961] font-bold text-lg">Configuration</th>
+                      <th className="text-left py-4 px-2 text-[#030961] font-bold text-lg">Carpet Area</th>
+                      <th className="text-left py-4 px-2 text-[#030961] font-bold text-lg">Price</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -56,19 +80,21 @@ export default function Price({ onOpenForm }: PriceProps) {
                       <tr key={index} className="border-b border-[#EAEAEA] transition-colors">
                         <td className="py-6 px-2">
                           <div className="flex items-center">
-                            <span className="text-xl font-bold text-[#3C3C3C]">{item.type}</span>
-                            <span className={`ml-3 px-2 py-1 text-xs font-medium border ${
-                              item.status === 'Available' ? 'bg-[#5B8C5A]/10 text-[#5B8C5A] border-[#5B8C5A]/50' : 'bg-orange-100/10 text-orange-700 border-orange-700/50'
-                            }`}>
+                            <span className="text-xl font-bold text-[#030961]">{item.type}</span>
+                            <span className={`ml-3 px-2 py-1 text-xs font-medium border rounded-full ${
+                                item.status === 'Available' 
+                                  ? 'bg-[#fad643]/20 text-[#030961] border-[#fad643]' 
+                                  : 'bg-[#030961]/10 text-[#fad643] border-[#030961]'
+                              }`}>
                               {item.status}
                             </span>
                           </div>
                         </td>
-                        <td className="py-6 px-2 text-slate-600 font-mono">{item.carpetArea}</td>
+                        <td className="py-6 px-2 text-[#242f40] font-mono">{item.carpetArea}</td>
                         <td className="py-6 px-2">
-                          <span className="text-xl font-bold text-[#4B7B87]">{item.price}</span>
+                          <span className="text-xl font-bold text-[#030961]">{item.price}</span>
                           {item.price.includes('*') && (
-                            <div className="text-xs text-slate-500 mt-1">Onwards</div>
+                            <div className="text-xs text-[#242f40] mt-1">Onwards</div>
                           )}
                         </td>
                       </tr>
@@ -80,7 +106,8 @@ export default function Price({ onOpenForm }: PriceProps) {
               <div className="mt-8 pt-6 border-t border-[#EAEAEA]">
                 <button
                   onClick={() => onOpenForm('price-breakup')}
-                  className="w-full px-6 py-4 bg-[#4B7B87] text-white font-semibold shadow-md hover:bg-[#5C8C9A] transition-all duration-200"
+                  className="w-full px-6 py-4 text-white font-semibold rounded-lg shadow-lg hover:scale-[1.01] transition-all duration-200
+                    bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-price-button-gradient"
                 >
                   Request for Detailed Price Breakup
                 </button>
@@ -93,41 +120,41 @@ export default function Price({ onOpenForm }: PriceProps) {
             </div>
           </div>
 
-          {/* Cost Analysis Image */}
+          {/* Investment Highlights Card */}
           <div className="bg-white p-8 border border-[#EAEAEA] shadow-md">
-            <h3 className="text-2xl font-bold text-[#3C3C3C] mb-6 text-center">Investment Highlights</h3>
+            <h3 className="text-2xl font-bold text-[#030961] mb-6 text-center">Investment Highlights</h3>
             
             <div className="space-y-6">
               <div className="flex items-center justify-between p-4 bg-white border border-[#EAEAEA] shadow-sm">
                 <div>
-                  <span className="text-slate-600 text-sm">Expected Appreciation</span>
-                  <div className="text-2xl font-mono font-bold text-[#5B8C5A]">12-15% p.a.</div>
+                  <span className="text-[#242f40] text-sm">Expected Appreciation</span>
+                  <div className="text-2xl font-mono font-bold text-[#030961]">12-15% p.a.</div>
                 </div>
-                <div className="text-3xl text-[#4B7B87]">📈</div>
+                <div className="text-3xl text-[#fad643]">📈</div>
               </div>
 
               <div className="flex items-center justify-between p-4 bg-white border border-[#EAEAEA] shadow-sm">
                 <div>
-                  <span className="text-slate-600 text-sm">Rental Yield</span>
-                  <div className="text-2xl font-mono font-bold text-[#4B7B87]">3.5-4.2%</div>
+                  <span className="text-[#242f40] text-sm">Rental Yield</span>
+                  <div className="text-2xl font-mono font-bold text-[#030961]">3.5-4.2%</div>
                 </div>
-                <div className="text-3xl text-[#4B7B87]">🏠</div>
+                <div className="text-3xl text-[#fad643]">🏠</div>
               </div>
 
               <div className="flex items-center justify-between p-4 bg-white border border-[#EAEAEA] shadow-sm">
                 <div>
-                  <span className="text-slate-600 text-sm">Possession</span>
-                  <div className="text-xl font-bold text-[#3C3C3C]">Dec 2026</div>
+                  <span className="text-[#242f40] text-sm">Possession</span>
+                  <div className="text-xl font-bold text-[#030961]">Dec 2026</div>
                 </div>
-                <div className="text-3xl text-[#4B7B87]">🗝️</div>
+                <div className="text-3xl text-[#fad643]">🗝️</div>
               </div>
 
               <div className="flex items-center justify-between p-4 bg-white border border-[#EAEAEA] shadow-sm">
                 <div>
-                  <span className="text-slate-600 text-sm">RERA Status</span>
-                  <div className="text-lg font-bold text-[#5B8C5A]">Approved</div>
+                  <span className="text-[#242f40] text-sm">RERA Status</span>
+                  <div className="text-lg font-bold text-[#030961]">Approved</div>
                 </div>
-                <div className="text-3xl text-[#4B7B87]">✅</div>
+                <div className="text-3xl text-[#fad643]">✅</div>
               </div>
             </div>
           </div>

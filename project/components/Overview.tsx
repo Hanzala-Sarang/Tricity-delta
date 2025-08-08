@@ -1,16 +1,40 @@
 'use client';
 
+import { useEffect } from 'react';
 interface OverviewProps {
   onOpenForm: (formType: string) => void;
 }
 
 export default function Overview({ onOpenForm }: OverviewProps) {
+
+    // Custom CSS for the animating button gradient, injected on component mount.
+    useEffect(() => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes header-button-gradient-animation {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-header-button-gradient {
+          background-size: 200% 200%;
+          animation: header-button-gradient-animation 4s ease-in-out infinite;
+        }
+      `;
+      document.head.appendChild(style);
+  
+      return () => {
+        document.head.removeChild(style);
+      };
+    }, []);
+
+
   return (
     <section className="py-20 bg-[#EAEAEA]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-[#3C3C3C] mb-8">
-            Where Luxury Meets <span className="text-[#4B7B87]">Lifestyle</span>
+            Where Luxury Meets <span className="text-[#030961]">Lifestyle</span>
           </h2>
           
           <p className="text-xl text-justify text-[#3C3C3C] leading-relaxed mb-12">
@@ -45,7 +69,7 @@ Delta & Tricity bring you a visionary lifestyle concept that seamlessly integrat
 
           <button
             onClick={() => onOpenForm('brochure')}
-            className="px-8 py-4 bg-[#4B7B87] text-white text-lg font-semibold hover:bg-[#5C8C9A] transition-all duration-200 shadow-md hover:shadow-lg"
+            className="px-8 py-4 rounded-lg text-white text-lg font-semibold hover:bg-[#5C8C9A] transition-all duration-200 shadow-md hover:shadow-lg bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-header-button-gradient"
           >
             Download Detailed Brochure
           </button>

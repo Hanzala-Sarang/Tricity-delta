@@ -9,7 +9,10 @@ interface LocationProps {
 
 export default function Location({ onOpenForm = () => {} }: LocationProps) { // Added default empty function
   const landmarks = [
-    { category: 'Transport Hubs', items: ['Airoli Railway Station - Close Proximity', 'Thane-Belapur Road - Easy Access', 'Upcoming Navi Mumbai International Airport - Connected'] },
+    { category: 'Transport Hubs', items: ['International Airport - 30mins',
+'Vashi - 20mins',
+'Airoli station - 5mins',
+'Rabale station -5mins only'] },
     { category: 'Healthcare Facilities', items: ['Reputed Hospitals - Nearby', 'Specialty Clinics - Accessible'] },
     { category: 'Educational Institutions', items: ['Top Schools - Short Drive', 'Renowned Colleges - Convenient Reach'] },
     { category: 'Shopping & Entertainment', items: ['Shopping Malls - Close By', 'Multiplexes & Dining - Vibrant Options'] },
@@ -24,7 +27,7 @@ export default function Location({ onOpenForm = () => {} }: LocationProps) { // 
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#000000] mb-4">
-            Prime <span className="text-[#4B7B87]">Location</span>
+            Prime <span className="text-[#030961]">Location</span>
           </h2>
           <p className="text-xl text-[#3C3C3C] max-w-3xl mx-auto opacity-80">
             Strategically located in the bustling heart of Airoli, Navi Mumbai, offering unparalleled connectivity and proximity to key city landmarks.
@@ -60,14 +63,14 @@ export default function Location({ onOpenForm = () => {} }: LocationProps) { // 
             </div>
             <div className="h-80 bg-white flex items-center justify-center">
               <div className="text-center">
-                <MapPinIcon className="w-12 h-12 text-[#4B7B87] mb-4 mx-auto" />
+                <MapPinIcon className="w-12 h-12 text-[#fad643] mb-4 mx-auto" />
                 <div className="text-[#3C3C3C] opacity-90 text-lg font-semibold">Detailed Connectivity Map</div>
                 <div className="text-sm text-[#3C3C3C] mt-2 opacity-70">
                   Request for a comprehensive map showcasing transport links and key routes.
                 </div>
                 <button
                   onClick={() => onOpenForm('location-request')}
-                  className="mt-4 px-6 py-2 bg-[#4B7B87] text-white rounded-lg hover:bg-[#5C8C9A] transition-colors shadow-md"
+                  className="mt-4 px-6 py-2 bg-[#030961] text-white rounded-lg hover:bg-[#242f40] transition-colors shadow-md"
                 >
                   Request Map
                 </button>
@@ -84,13 +87,13 @@ export default function Location({ onOpenForm = () => {} }: LocationProps) { // 
               className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-[#EAEAEA]"
             >
               <h3 className="text-xl font-bold text-[#000000] mb-4 flex items-center">
-                <span className="w-3 h-3 bg-[#4B7B87] rounded-sm mr-3"></span>
+                <span className="w-3 h-3 bg-[#030961] rounded-sm mr-3"></span>
                 {landmark.category}
               </h3>
               <ul className="space-y-2">
                 {landmark.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="text-[#3C3C3C] flex items-center opacity-80">
-                    <span className="w-2 h-2 bg-[#4B7B87] rounded-full mr-3 flex-shrink-0"></span>
+                    <span className="w-2 h-2 bg-[#030961] rounded-full mr-3 flex-shrink-0"></span>
                     {item}
                   </li>
                 ))}
@@ -100,7 +103,7 @@ export default function Location({ onOpenForm = () => {} }: LocationProps) { // 
         </div>
 
         {/* Location Highlights Banner */}
-        <div className="mt-16 bg-[#3C3C3C] rounded-lg p-8 text-white">
+        <div className="mt-16 bg-[#030961] rounded-lg p-8 text-white">
           <div className="text-center">
             <h3 className="text-2xl md:text-3xl font-bold mb-6">Why Airoli, Navi Mumbai?</h3>
             <div className="grid md:grid-cols-3 gap-8">

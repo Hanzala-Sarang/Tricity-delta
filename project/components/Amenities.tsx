@@ -15,7 +15,7 @@ export default function Amenities() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#000000] mb-4">
-            World-Class <span className="text-[#4B7B87]">Amenities</span>
+            World-Class <span className="text-[#030961]">Amenities</span> {/* Changed span color to dark blue */}
           </h2>
           <p className="text-xl text-justify text-[#3C3C3C] max-w-3xl mx-auto opacity-80">
             Experience luxury living with our comprehensive range of premium amenities designed for your comfort and convenience
@@ -40,7 +40,7 @@ export default function Amenities() {
         </div>
 
         {/* Additional Amenities Banner */}
-        <div className="mt-16 bg-gradient-to-r from-[#4B7B87] to-slate-700 rounded-lg p-8 text-center text-white">
+        <div className="mt-16 bg-gradient-to-r from-[#fad643] to-[#030961] rounded-lg p-8 text-center text-white"> {/* Changed gradient colors */}
           <h3 className="text-2xl md:text-3xl font-bold mb-4">And Many More...</h3>
           <p className="text-lg text-justify mb-6 max-w-3xl mx-auto">
             Discover over 30 premium amenities including library, business center, 

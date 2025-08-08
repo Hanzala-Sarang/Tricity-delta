@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Toaster } from 'sonner';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
@@ -15,35 +15,67 @@ import About from '@/components/About';
 import Footer from '@/components/Footer';
 import ContactModal from '@/components/ContactModal';
 import BookingCard from '@/components/BookingCard';
-import Loader from '@/components/Loader'; // Import the Loader component
+import Loader from '@/components/Loader';
 import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentFormType, setCurrentFormType] = useState('');
-  const [isLoading, setIsLoading] = useState(true); // State to control loader visibility
+  const [isLoading, setIsLoading] = useState(true);
 
-  // This useEffect will manage the initial page loading and modal opening.
-  useEffect(() => {
-    // Simulate initial content loading for the page
-    const loadContentTimer = setTimeout(() => {
-      setIsLoading(false); // Hide loader after content is "loaded"
-      // Now, open the modal after the main content is visible
+  // Ref to hold the timeout ID for the automatic modal pop-up
+  const autoModalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Function to start the periodic modal display cycle
+  const startAutoModalTimer = () => {
+    // Clear any existing timer to prevent multiple timers running
+    if (autoModalTimeoutRef.current) {
+      clearTimeout(autoModalTimeoutRef.current);
+    }
+
+    // Set a timer to open the modal after the defined interval (e.g., 5 seconds)
+    autoModalTimeoutRef.current = setTimeout(() => {
       setIsModalOpen(true);
-      setCurrentFormType('enquiry'); // Set a default form type
-    }, 1500); // Simulate 1.5 seconds of loading time
+      setCurrentFormType('enquiry'); // Default type for the automatically opened modal
+      // NO nested setTimeout here, as the modal should not close automatically
+    }, 30000); // Modal will pop up every 5 seconds
+  };
 
-    return () => clearTimeout(loadContentTimer);
-  }, []);
+  // Effect for initial page loading and starting the automatic modal timer
+  useEffect(() => {
+    // Simulate initial content loading
+    const loadContentTimer = setTimeout(() => {
+      setIsLoading(false); // Hide the loader after content is "loaded"
+      startAutoModalTimer(); // Start the automatic modal timer after the page loads
+    }, 1500); // Simulate 1.5 seconds loading time for the page
 
+    // Cleanup function: clear both timers if the component unmounts
+    return () => {
+      clearTimeout(loadContentTimer);
+      if (autoModalTimeoutRef.current) {
+        clearTimeout(autoModalTimeoutRef.current);
+      }
+    };
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  // Handler for opening the form from manual clicks (e.g., "Enquire Now" buttons)
   const handleOpenForm = (formType: string) => {
+    // When the form is opened manually, clear any pending automatic pop-up
+    if (autoModalTimeoutRef.current) {
+      clearTimeout(autoModalTimeoutRef.current);
+      autoModalTimeoutRef.current = null; // Explicitly nullify the ref
+    }
     setCurrentFormType(formType);
     setIsModalOpen(true);
   };
 
+  // Handler for closing the form (both manual and automatic)
   const handleCloseForm = () => {
     setIsModalOpen(false);
     setCurrentFormType('');
+    // After closing, restart the automatic modal timer to respect the user's interaction
+    // The timer will now wait 5 seconds before attempting to open the modal again
+    startAutoModalTimer(); 
   };
 
   return (
@@ -51,7 +83,7 @@ export default function Home() {
       <Toaster position="top-right" />
       
       {/* Conditionally render the Loader */}
-      <Loader show={isLoading}  />
+      <Loader show={isLoading} />
 
       {/* Render main content only when not loading */}
       {!isLoading && (
@@ -60,11 +92,9 @@ export default function Home() {
           
           {/* Main content area with responsive flex layout */}
           <div className="bg-[#EAEAEA] flex flex-col lg:mt-20 lg:flex-row min-h-screen pt-16 lg:pt-0">
-            {/* Hero section wrapper - takes 70% width on large screens, full width on small */}
             <div className="w-full h-full lg:w-8/12 relative">
               <Hero onOpenForm={handleOpenForm} />
             </div>
-            {/* BookingCard section wrapper - takes 30% width on large screens, full width on small */}
             <div className="w-full h-full lg:w-4/12 flex items-center justify-center">
               <BookingCard onOpenForm={handleOpenForm} />
             </div>
@@ -83,15 +113,14 @@ export default function Home() {
           
           <ContactModal
             isOpen={isModalOpen}
-            onClose={handleCloseForm}
+            onClose={handleCloseForm} // Pass the close handler to the modal
             formType={currentFormType}
           />
 
           {/* Sticky Call and WhatsApp Buttons */}
           <div className="fixed bottom-6 md:bottom-8 right-6 md:right-8 z-50 flex flex-col items-center space-y-4">
-            {/* WhatsApp Button */}
             <a
-              href="https://wa.me/+919876543210" // Replace with your WhatsApp number including country code
+              href="https://wa.me/+919324242484" // Replace with your WhatsApp number
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
@@ -100,9 +129,8 @@ export default function Home() {
               <FaWhatsapp className="h-6 w-6" />
             </a>
 
-            {/* Phone Call Button */}
             <a
-              href="tel:+919876543210" // Replace with your phone number
+              href="tel:+919324242484" // Replace with your phone number
               className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300"
               aria-label="Call us"
             >

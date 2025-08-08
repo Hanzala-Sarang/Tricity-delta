@@ -301,7 +301,7 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
                 />
               </div>
 
-              {(formType === 'enquiry' || formType === 'price-breakup') && (
+
                 <div>
                   <label htmlFor="unitInterested" className="block mb-1 text-xs font-medium text-gray-700">Unit Interested In</label>
                   <select
@@ -316,12 +316,12 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
                     <option value="3bhk">3 BHK</option>
                   </select>
                 </div>
-              )}
+              
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full text-black font-semibold py-2.5 rounded-lg text-sm transition bg-gradient-to-r from-[#4B7B87] via-[#5C8C9A] to-white animate-gradient-button hover:scale-[1.01] shadow-lg"
+                className="w-full  font-semibold py-2.5 rounded-lg text-sm transition bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-header-button-gradient animate-gradient-button text-white hover:scale-[1.01] shadow-lg"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Request'}
               </button>
@@ -333,7 +333,7 @@ export default function ContactModal({ isOpen, onClose, formType }: ContactModal
           </div>
           {/* Get Information Section: always visible */}
           <div
-            className="bg-[#4B7B87] p-2 text-white flex flex-col items-center justify-center min-h-[180px]"
+            className="transition bg-gradient-to-r from-[#fad643] via-[#030961] to-[#fad643] animate-header-button-gradient animate-gradient-button p-2 text-white flex flex-col items-center justify-center min-h-[180px]"
           >
             <h3 className="text-lg font-bold text-center border-b-2 border-white pb-1 mb-1">
               Get Information On Availabilities
